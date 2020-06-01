@@ -1,0 +1,28 @@
+version: "3"
+services:
+  web:
+    build: .
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code/localstack-example
+    env_file: .env
+    command: "python manage.py runserver 0:8060"
+    links:
+      - aws:aws
+    depends_on:
+      - aws
+  aws:
+    image: localstack/localstack-light
+    environment:
+      - SERVICES=s3
+      - HOSTNAME_EXTERNAL=aws
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    expose:
+      - 4566
+      - 4572
+    volumes:
+      - ./.localstack:/tmp/localstack
