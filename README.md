@@ -26,32 +26,38 @@ only used for connecting to AWS. They are ignored/overridden when talking to Loc
 a convenience to avoid leaking actual creds in localstack logs). Supply those two as well as a
 bucket to which you have access to test the live upload.
 
-    ```
-    cp .env.tmpl .env
-    ```
+```
+cp .env.tmpl .env
+```
 
 1. Build container
 
-    ```
-    docker-compose build
-    ```
+```
+docker-compose build
+```
 
 1. Run tests
 
-    ```
-    docker-compose run web pytest
-    ```
+```
+docker-compose run web pytest
+```
 
 # Other helpful commands
 
-1. Run a single test
+- Run a single test
 
-    ```
-    docker-compose run web pytest -k <test_case_name>
-    ```
+```
+docker-compose run web pytest -k <test_case_name>
+```
 
-1. Stand up the API for manual interaction (with `curl` for example)
+- Stand up the API for manual interaction (with `curl` for example)
 
-    ```
-    docker-compose up
-    ```
+```
+docker-compose up
+```
+
+# Some Debugging Support
+
+- For convenience, the localstack data is mapped to a volume in the repository root at `.localstack/`.
+
+- Feel free to uncomment the `breakpoint()` lines to enter a debug shell at that point in the test case.
